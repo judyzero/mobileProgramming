@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">myapp</string>
+    <string name="joinPasswordText"> *5자 이상, 특수키는 한개 이상</string>
     <string name="agree">이용약관\n\n제1조(목적) 모바일 프로그래밍 이용약관</string>
+    <string name="title_activity_product">ProductActivity</string>
+    <string name="macbookText">M2 맥북 에어</string>
+    <string name="airpodsMaxText">에어팟 맥스</string>
+    <string name="iPadText">아이패드 프로 11</string>
+    <string name="iPhoneText">아이폰 프로 14 </string>
+    <string name="watchText">애플워치 울트라</string>
 </resources>
