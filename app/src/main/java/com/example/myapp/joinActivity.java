@@ -95,14 +95,17 @@ public class joinActivity extends MainActivity {
 
     //회원가입정보 프레퍼런스에 저장
     private void  signCheck(){
-        memberPref = this.getSharedPreferences("memberPref", joinActivity.MODE_PRIVATE);
+        String filename = String.format("%s",id);
+        memberPref = this.getSharedPreferences(filename, joinActivity.MODE_PRIVATE);
         editor = memberPref.edit();
         editor.putString("id", id);
         editor.putString("password", password);
         editor.putString("name", name);
         editor.putString("phone", phone);
         editor.putString("address", address);
-        this.editor.apply();
+        this.editor.commit();
+        Toast.makeText(getApplicationContext(), "프레퍼런스 저장", Toast.LENGTH_SHORT).show();
+
     }
 }
 

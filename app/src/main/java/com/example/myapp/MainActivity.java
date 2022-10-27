@@ -11,18 +11,18 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+
 public class MainActivity extends AppCompatActivity {
     Button btnLogin, btnJoin, btnProduct;
     EditText loginID, loginPassword;
     RadioButton autoLogin;
 
-//    SharedPreferences.Editor editor;
-//    SharedPreferences memberPref;
-
-    //기록할 xml 파일 이름, 0:r,w 권한
-//    memberPref = getSharedPreferences("setting", 0);
-
-//    editor= memberPref.edit();
+    SharedPreferences memberPref;
+    SharedPreferences.Editor editor;
+    String id, password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,18 +33,29 @@ public class MainActivity extends AppCompatActivity {
         btnJoin = (Button) findViewById(R.id.btnJoin);
         btnProduct = (Button) findViewById(R.id.btnProduct);
 
+        //id, password 값 받기
+        loginID = (EditText) findViewById(R.id.loginID);
+        loginPassword = (EditText) findViewById(R.id.loginPassword);
+        autoLogin = (RadioButton) findViewById(R.id.autoLogin);
+
         //로그인 눌렀을 경우
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //toast 알람 띄우기
-                Toast.makeText(getApplicationContext(), "Click btnLogin",
-                        Toast.LENGTH_SHORT).show();
+                id = loginID.getText().toString();
+                password = loginPassword.getText().toString();
 
-                //id, password값 받기
-                loginID = (EditText) findViewById(R.id.loginID);
-                loginPassword = (EditText) findViewById(R.id.loginPassword);
-                autoLogin = (RadioButton) findViewById(R.id.autoLogin);
+                //파일을 읽는다.
+                String filename = String.format("%s", id);
+                try{
+                    memberPref = getSharedPreferences(filename, joinActivity.MODE_PRIVATE);
+                    passwordCheck();
+                }
+                //아이디(파일)이 존재하지 않을 경우
+                catch (Exception e){
+                    Toast.makeText(getApplicationContext(), "존재하지 않는 아이디입니다.",
+                            Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -66,31 +77,30 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        //자동로그인 기능
-//        if(autoLogin.isChecked()){
-//            String id = loginID.getText().toString();
-//            String password = loginPassword.getText().toString();
-//
-//            editor.putString("id", id);
-//            editor.putString("password", password);
-//            editor.putBoolean("autoLogin_enabled", true);
-//            editor.apply();
-//        } else{
-//            editor.remove("id");
-//            editor.remove("pw");
-//            editor.remove("autoLogin_enabled");
-//            editor.clear();
-//            editor.apply();
-//        }
-
-        //자동로그인 - 껐다 켜도 값 유지
-//        if(setting.getBoolean("autoLogin_enabled", false)){
-//            loginID.setText(setting.getString("ID", ""));
-//            loginPassword.setText(setting.getString("PW", ""));
-//            autoLogin.setChecked(true);
-//
-//        }
+    }
+    public void passwordCheck(){
+        // id, pw 값 가져옴
+        String prefId = memberPref.getString("id", "");
+        String prefPassword = memberPref.getString("password", "");
+        //아이디 맞음
+        if(id.equals(prefId)){
+            //아이디, 비밀번호 맞음
+            if (password.equals((prefPassword))) {
+                Intent intent = new Intent(getApplicationContext(),
+                        ProductActivity.class);
+                startActivity(intent);
+            }
+            //아이디 맞지만 비밀번호 틀림
+            else{
+                Toast.makeText(getApplicationContext(), "비밀번호를 다시 입력하세요.",
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
+        //아이디 틀림
+        else{
+            Toast.makeText(getApplicationContext(), "아이디를 다시 입력하세요.",
+                    Toast.LENGTH_SHORT).show();
+        }
 
     }
-}
+ }
