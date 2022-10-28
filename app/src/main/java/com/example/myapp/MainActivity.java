@@ -82,16 +82,10 @@ public class MainActivity extends AppCompatActivity {
         btnProduct.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                //회원가입 안한 경우
-                if(id.equals(null)){
-
-                }
-                else{
                     Intent intent = new Intent(getApplicationContext(),
                             ProductActivity.class);
                     intent.putExtra("id", id);
                     startActivity(intent);
-                }
             }
         });
     }

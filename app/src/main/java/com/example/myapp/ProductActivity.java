@@ -1,7 +1,9 @@
 package com.example.myapp;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -33,11 +35,30 @@ public class ProductActivity extends MainActivity {
         btnInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //info activity로 넘어감
-                Intent intent = new Intent(getApplicationContext(),
-                        InfoActivity.class);
-                intent.putExtra("id", id);
-                startActivity(intent);
+                //로그인 안했을 경우
+                if(id == null){
+                    //dialog 띄우기
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ProductActivity.this);
+                    builder.setTitle("로그인 선택");
+                    builder.setMessage("회원가입을 하시겠습니까?");
+
+                    //예 누르면 회원가입 페이지로 이동
+                    builder.setPositiveButton("예",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent intent = new Intent(getApplicationContext(), joinActivity.class);
+                                    startActivity(intent);
+                                }
+                            });
+                    builder.show();
+                }
+                else{
+                    //info activity로 넘어감
+                    Intent intent = new Intent(getApplicationContext(),
+                            InfoActivity.class);
+                    intent.putExtra("id", id);
+                    startActivity(intent);
+                }
             }
         });
     }
