@@ -3,7 +3,6 @@ package com.example.myapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -20,8 +19,6 @@ public class MainActivity extends AppCompatActivity {
     EditText loginID, loginPassword;
     RadioButton autoLogin;
 
-    SharedPreferences memberPref;
-    SharedPreferences.Editor editor;
     String id, password;
 
     @Override
@@ -44,17 +41,22 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 id = loginID.getText().toString();
                 password = loginPassword.getText().toString();
-
-                //파일을 읽는다.
-                String filename = String.format("%s", id);
-                try{
-                    memberPref = getSharedPreferences(filename, joinActivity.MODE_PRIVATE);
-                    passwordCheck();
+                if(password.equals(passwordCheck(id))) {
+                    //아이디, 비밀번호 맞음
+                    Intent intent = new Intent(getApplicationContext(), ProductActivity.class);
+                    intent.putExtra("id", id);
+                    startActivity(intent);
                 }
-                //아이디(파일)이 존재하지 않을 경우
-                catch (Exception e){
-                    Toast.makeText(getApplicationContext(), "존재하지 않는 아이디입니다.",
-                            Toast.LENGTH_SHORT).show();
+                //에러 처리
+                else{
+                    //아이디 틀림
+                    if(passwordCheck(id) == null) {
+                        Toast.makeText(getApplicationContext(), "아이디를 다시 입력하세요.",
+                                Toast.LENGTH_SHORT).show();
+                    } else{
+                        Toast.makeText(getApplicationContext(), "비밀번호를 다시 입력하세요.",
+                                Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -78,29 +80,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    public void passwordCheck(){
-        // id, pw 값 가져옴
-        String prefId = memberPref.getString("id", "");
-        String prefPassword = memberPref.getString("password", "");
-        //아이디 맞음
-        if(id.equals(prefId)){
-            //아이디, 비밀번호 맞음
-            if (password.equals((prefPassword))) {
-                Intent intent = new Intent(getApplicationContext(),
-                        ProductActivity.class);
-                startActivity(intent);
-            }
-            //아이디 맞지만 비밀번호 틀림
-            else{
-                Toast.makeText(getApplicationContext(), "비밀번호를 다시 입력하세요.",
-                        Toast.LENGTH_SHORT).show();
-            }
-        }
-        //아이디 틀림
-        else{
-            Toast.makeText(getApplicationContext(), "아이디를 다시 입력하세요.",
-                    Toast.LENGTH_SHORT).show();
-        }
 
+    //로그인 기능 - 회원가입 정보랑 맞는지 확인
+    public String passwordCheck(String id) {
+        //회원가입 정보 가져오기
+        String tmp = null;
+        try {
+            FileInputStream fs = openFileInput(id);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(fs));
+            tmp = reader.readLine();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return tmp;
     }
  }
+
