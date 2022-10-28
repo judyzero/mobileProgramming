@@ -85,18 +85,18 @@
 
             <TextView
                 android:id="@+id/signagree"
-                android:scrollbars="vertical"
-                android:overScrollMode="always"
                 android:layout_width="match_parent"
-                android:maxLines="20"
-                android:layout_height="100dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginBottom="10dp"
                 android:ems="10"
                 android:hint="이용약관"
-                android:text="@string/agree"
+                android:maxLines="20"
+                android:overScrollMode="always"
                 android:paddingLeft="10dp"
+                android:scrollbars="vertical"
+                android:text="@string/agree"
                 android:textSize="10dp" />
 
             <RadioButton
@@ -106,6 +106,14 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:text="동의함" />
+
+            <RadioButton
+                android:id="@+id/notagreeRb"
+                android:layout_width="112dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:text="동의안함" />
 
             <Button
                 android:id="@+id/btnSave"

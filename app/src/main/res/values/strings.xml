@@ -3,9 +3,9 @@
     <string name="joinPasswordText"> *5자 이상, 영어, 숫자, 특수기호 1개 이상 포함</string>
     <string name="agree">이용약관\n\n제1조(목적) 모바일 프로그래밍 이용약관</string>
     <string name="title_activity_product">ProductActivity</string>
-    <string name="macbookText">M2 맥북 에어</string>
-    <string name="airpodsMaxText">에어팟 맥스</string>
-    <string name="iPadText">아이패드 프로 11</string>
-    <string name="iPhoneText">아이폰 프로 14 </string>
-    <string name="watchText">애플워치 울트라</string>
+    <string name="macbookText">M2 맥북 에어\n\n완전히 새로운 디자인\n막강한 성능\n\n1,690,000부터</string>
+    <string name="airpodsMaxText">에어팟 맥스\n\n감동적인 하이파이 오디오\n매혹적인 사용성\n\n769.000부터</string>
+    <string name="iPadText">아이패드 프로 11\n\n막강한 성능의 M2칩 탑재\n놀라운 첨단 디스플레이\n\n1,249,000부터</string>
+    <string name="iPhoneText">아이폰 프로 14\n\n프로 그 이상\n견고함을 앞세운 디자인\n\n1,550,000부터 </string>
+    <string name="watchText">애플워치 울트라\n\n모험을 위한 시간\n역대 최강의 내구성\n\n1,149,000부터</string>
 </resources>

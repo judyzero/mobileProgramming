@@ -22,7 +22,7 @@ public class joinActivity extends MainActivity {
     Button btnSave;
     EditText joinId, joinPassword, joinName, joinPhone, joinAddress;
     String id, password, name, phone, address;
-    RadioButton agreeRb;
+    RadioButton agreeRb, notagreeRb;
 
     @Override
     protected void onCreate(Bundle saveInstanceState){
@@ -36,6 +36,7 @@ public class joinActivity extends MainActivity {
         joinPhone = (EditText) findViewById(R.id.joinPhone);
         joinAddress = (EditText) findViewById(R.id.joinAddress);
         agreeRb = (RadioButton) findViewById(R.id.agreeRb);
+        notagreeRb = (RadioButton) findViewById(R.id.notagreeRb);
 
         //회원가입하기 버튼을 눌렀을 때
         btnSave.setOnClickListener(new View.OnClickListener() {
@@ -54,6 +55,10 @@ public class joinActivity extends MainActivity {
 
                 //약관에 동의 안했다면 실행
                 if(!agreeRb.isChecked()){
+                    Toast.makeText(getApplicationContext(), "약관을 읽고 동의 해주세요.",
+                            Toast.LENGTH_SHORT).show();
+                }
+                else if(notagreeRb.isChecked()){
                     Toast.makeText(getApplicationContext(), "약관을 읽고 동의 해주세요.",
                             Toast.LENGTH_SHORT).show();
                 }

@@ -28,9 +28,9 @@ public class InfoActivity extends ProductActivity {
 
         Intent intent = getIntent();
         userName = intent.getExtras().getString("id");
-        infoName.setText("이름" + getName(userName));
-        infoPhone.setText("전화번호" + getPhone(userName));
-        infoAddress.setText("주소" + getAddress(userName));
+        infoName.setText(getName(userName));
+        infoPhone.setText(getPhone(userName));
+        infoAddress.setText(getAddress(userName));
     }
 
     public String getName(String name){
