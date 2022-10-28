@@ -2,19 +2,77 @@ package com.example.myapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
-public class InfoActivity extends AppCompatActivity {
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
-    TextView infoId;
+public class InfoActivity extends ProductActivity {
+
+    TextView infoName, infoPhone, infoAddress;
+    String userName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
 
-        infoId = (TextView)findViewById(R.id.infoId);
-        infoId.setText("이효인");
+        infoName = (TextView) findViewById(R.id.infoName);
+        infoPhone = (TextView) findViewById(R.id.infoPhone);
+        infoAddress = (TextView) findViewById(R.id.infoAddress);
 
+        Intent intent = getIntent();
+        userName = intent.getExtras().getString("id");
+        infoName.setText("이름" + getName(userName));
+        infoPhone.setText("전화번호" + getPhone(userName));
+        infoAddress.setText("주소" + getAddress(userName));
     }
+
+    public String getName(String name){
+        String tmp = null;
+        try{
+            FileInputStream fs = openFileInput(name);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(fs));
+            reader.readLine();
+            tmp = reader.readLine();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return tmp;
+    }
+
+    public String getPhone(String name){
+        String tmp = null;
+        try{
+            FileInputStream fs = openFileInput(name);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(fs));
+            reader.readLine();
+            reader.readLine();
+            tmp = reader.readLine();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return tmp;
+    }
+
+    public String getAddress(String name){
+        String tmp = null;
+        try{
+            FileInputStream fs = openFileInput(name);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(fs));
+            reader.readLine();
+            reader.readLine();
+            reader.readLine();
+            tmp = reader.readLine();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return tmp;
+    }
+
 }

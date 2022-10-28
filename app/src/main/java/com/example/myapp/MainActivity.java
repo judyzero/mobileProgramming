@@ -35,6 +35,13 @@ public class MainActivity extends AppCompatActivity {
         loginPassword = (EditText) findViewById(R.id.loginPassword);
         autoLogin = (RadioButton) findViewById(R.id.autoLogin);
 
+        //자동로그인
+        if (autoLogin.isChecked()) {
+            Intent intent = new Intent(getApplicationContext(), ProductActivity.class);
+            intent.putExtra("id", id);
+            startActivity(intent);
+        }
+
         //로그인 눌렀을 경우
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,12 +78,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //메인으로 이동 눌렀을 경우
         btnProduct.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),
-                        ProductActivity.class);
-                startActivity(intent);
+                //회원가입 안한 경우
+                if(id.equals(null)){
+
+                }
+                else{
+                    Intent intent = new Intent(getApplicationContext(),
+                            ProductActivity.class);
+                    intent.putExtra("id", id);
+                    startActivity(intent);
+                }
             }
         });
     }

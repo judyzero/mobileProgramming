@@ -20,25 +20,6 @@
         android:inputType="textPersonName"
         android:text="회원정보" />
 
-    <TextView
-        android:id="@+id/infoId"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginBottom="20dp"
-        android:layout_weight="1" />
-
-    <TextView
-        android:id="@+id/infoPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginBottom="20dp"
-        android:layout_weight="1" />
 
     <TextView
         android:id="@+id/infoName"
