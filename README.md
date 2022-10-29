@@ -22,6 +22,7 @@ https://user-images.githubusercontent.com/100904133/198803410-34446f2d-0261-4cd6
 회원이 이름, 전화번호, 주소 보여줌
 
 
+## 과제설명
 **1. 첫번째 화면 (Relative Layout 혹은 Fragment 사용) - 5점**- 
 앱 접속 페이지
 
