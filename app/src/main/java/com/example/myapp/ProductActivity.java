@@ -29,7 +29,7 @@ public class ProductActivity extends MainActivity {
 
         //로그인 정보 받기
         Intent intent = getIntent();
-        id = intent.getExtras().getString("id");
+        id = intent.getExtras().getString("intentId");
 
         //회원정보 버튼 눌렀을 경우
         btnInfo.setOnClickListener(new View.OnClickListener() {
@@ -56,7 +56,7 @@ public class ProductActivity extends MainActivity {
                     //info activity로 넘어감
                     Intent intent = new Intent(getApplicationContext(),
                             InfoActivity.class);
-                    intent.putExtra("id", id);
+                    intent.putExtra("intentId", id);
                     startActivity(intent);
                 }
             }

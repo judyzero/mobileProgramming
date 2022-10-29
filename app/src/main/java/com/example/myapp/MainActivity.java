@@ -2,7 +2,9 @@ package com.example.myapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,8 +20,12 @@ public class MainActivity extends AppCompatActivity {
     Button btnLogin, btnJoin, btnProduct;
     EditText loginID, loginPassword;
     RadioButton autoLogin;
+    String id, password, autoID, autoPassword;
+    boolean autoCheck;
 
-    String id, password;
+    SharedPreferences memberPref;
+    SharedPreferences.Editor editor;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +42,14 @@ public class MainActivity extends AppCompatActivity {
         autoLogin = (RadioButton) findViewById(R.id.autoLogin);
 
         //자동로그인
-        if (autoLogin.isChecked()) {
-            Intent intent = new Intent(getApplicationContext(), ProductActivity.class);
-            intent.putExtra("id", id);
-            startActivity(intent);
+        try{
+            memberPref = getSharedPreferences("memberPref", joinActivity.MODE_PRIVATE);
+            loginID.setText(memberPref.getString("autoID", ""));
+            loginPassword.setText(memberPref.getString("autoPassword", ""));
+            autoLogin.setChecked(true);
+        }catch (Exception e){
+            Toast.makeText(getApplicationContext(), "자동로그인 실패",
+                    Toast.LENGTH_SHORT).show();
         }
 
         //로그인 눌렀을 경우
@@ -48,19 +58,36 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 id = loginID.getText().toString();
                 password = loginPassword.getText().toString();
-                if(password.equals(passwordCheck(id))) {
-                    //아이디, 비밀번호 맞음
+                autoCheck = autoLogin.isChecked();
+                Toast.makeText(getApplicationContext(), "autologin: " + autoCheck,
+                        Toast.LENGTH_SHORT).show();
+
+                //아이디, 비밀번호 맞음
+                if (password.equals(passwordCheck(id))) {
+                    if (autoCheck) {
+                        editor = memberPref.edit();
+                        editor.putString("autoID", id);
+                        editor.putString("autoPassword", password);
+                        editor.putBoolean("autoCheck", true);
+                        editor.commit();
+                        Toast.makeText(getApplicationContext(), "프레퍼런스 저장", Toast.LENGTH_SHORT).show();
+                    }
+                    Toast.makeText(getApplicationContext(), "자동로그인 화면전환",
+                            Toast.LENGTH_SHORT).show();
+                    //product 화면으로 이동
                     Intent intent = new Intent(getApplicationContext(), ProductActivity.class);
-                    intent.putExtra("id", id);
+                    intent.putExtra("intentId", id);
                     startActivity(intent);
+                    finish();
+
                 }
                 //에러 처리
-                else{
+                else {
                     //아이디 틀림
-                    if(passwordCheck(id) == null) {
+                    if (passwordCheck(id) == null) {
                         Toast.makeText(getApplicationContext(), "아이디를 다시 입력하세요.",
                                 Toast.LENGTH_SHORT).show();
-                    } else{
+                    } else {
                         Toast.makeText(getApplicationContext(), "비밀번호를 다시 입력하세요.",
                                 Toast.LENGTH_SHORT).show();
                     }
@@ -68,26 +95,28 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //회원가입 눌렀을 경우
-        btnJoin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),
-                        joinActivity.class);
-                startActivity(intent);
-            }
-        });
 
-        //메인으로 이동 눌렀을 경우
-        btnProduct.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
+            //회원가입 눌렀을 경우
+            btnJoin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getApplicationContext(),
+                            joinActivity.class);
+                    startActivity(intent);
+                }
+            });
+
+            //메인으로 이동 눌렀을 경우
+            btnProduct.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View view) {
                     Intent intent = new Intent(getApplicationContext(),
                             ProductActivity.class);
-                    intent.putExtra("id", id);
+                    intent.putExtra("intentId", id);
                     startActivity(intent);
-            }
-        });
+                }
+            });
+
     }
 
     //로그인 기능 - 회원가입 정보랑 맞는지 확인
@@ -97,11 +126,13 @@ public class MainActivity extends AppCompatActivity {
         try {
             FileInputStream fs = openFileInput(id);
             BufferedReader reader = new BufferedReader(new InputStreamReader(fs));
+            reader.readLine();
             tmp = reader.readLine();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return tmp;
     }
+
  }
 

@@ -25,8 +25,8 @@ public class joinActivity extends MainActivity {
     RadioButton agreeRb, notagreeRb;
 
     @Override
-    protected void onCreate(Bundle saveInstanceState){
-        super.onCreate(saveInstanceState);
+    protected void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join);
 
         btnSave = (Button) findViewById(R.id.btnSave);
@@ -116,7 +116,7 @@ public class joinActivity extends MainActivity {
 
     //파일 생성, 정보 저장
     private void  signCheck(){
-        String memberInfo = password + "\n" + name + "\n" + phone + "\n" + address;
+        String memberInfo = id + "\n" + password + "\n" + name + "\n" + phone + "\n" + address;
         try{
             FileOutputStream fs = openFileOutput(id, Context.MODE_PRIVATE);
             PrintWriter writer = new PrintWriter(fs);

@@ -27,7 +27,7 @@ public class InfoActivity extends ProductActivity {
         infoAddress = (TextView) findViewById(R.id.infoAddress);
 
         Intent intent = getIntent();
-        userName = intent.getExtras().getString("id");
+        userName = intent.getExtras().getString("intentId");
         infoName.setText(getName(userName));
         infoPhone.setText(getPhone(userName));
         infoAddress.setText(getAddress(userName));
@@ -38,6 +38,7 @@ public class InfoActivity extends ProductActivity {
         try{
             FileInputStream fs = openFileInput(name);
             BufferedReader reader = new BufferedReader(new InputStreamReader(fs));
+            reader.readLine();
             reader.readLine();
             tmp = reader.readLine();
         } catch (Exception e){
@@ -53,6 +54,7 @@ public class InfoActivity extends ProductActivity {
             BufferedReader reader = new BufferedReader(new InputStreamReader(fs));
             reader.readLine();
             reader.readLine();
+            reader.readLine();
             tmp = reader.readLine();
         } catch (Exception e){
             e.printStackTrace();
@@ -65,6 +67,7 @@ public class InfoActivity extends ProductActivity {
         try{
             FileInputStream fs = openFileInput(name);
             BufferedReader reader = new BufferedReader(new InputStreamReader(fs));
+            reader.readLine();
             reader.readLine();
             reader.readLine();
             reader.readLine();
