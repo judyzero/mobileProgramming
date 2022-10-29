@@ -1,3 +1,7 @@
+
+
+https://user-images.githubusercontent.com/100904133/198803410-34446f2d-0261-4cd6-9fa7-60c0c24fdbbd.MP4
+
 # mobileProgramming
 **1. 첫번째 화면 (Relative Layout 혹은 Fragment 사용) - 5점**- 
 앱 접속 페이지
