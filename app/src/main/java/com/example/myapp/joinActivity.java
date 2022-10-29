@@ -49,7 +49,7 @@ public class joinActivity extends MainActivity {
                 address = joinAddress.getText().toString();
 
                 //비밀번호 특수문자
-                String pattern = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,20}$";
+                String pattern = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{5,}$";
 //                String pattern = "((?=.*[a-z])(?=.*[0-9]))";
                 Matcher matcher = Pattern.compile(pattern).matcher(password);
 
@@ -86,11 +86,6 @@ public class joinActivity extends MainActivity {
 
                 else if(address.equals("")){
                     Toast.makeText(getApplicationContext(), "주소를 입력해주세요.", Toast.LENGTH_SHORT).show();
-                }
-
-                //비밀번호 자릿수
-                else if(password.length() < 5) {
-                    Toast.makeText(getApplicationContext(), "비밀번호는 5자 이상 입력해야 합니다.", Toast.LENGTH_SHORT).show();
                 }
 
                //특수키 규칙 확인

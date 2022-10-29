@@ -44,12 +44,13 @@ public class MainActivity extends AppCompatActivity {
         //자동로그인
         try{
             memberPref = getSharedPreferences("memberPref", joinActivity.MODE_PRIVATE);
-            loginID.setText(memberPref.getString("autoID", ""));
-            loginPassword.setText(memberPref.getString("autoPassword", ""));
-            autoLogin.setChecked(true);
+            if(memberPref.getBoolean("autoCheck", false)){
+                loginID.setText(memberPref.getString("autoID", ""));
+                loginPassword.setText(memberPref.getString("autoPassword", ""));
+                autoLogin.setChecked(true);
+            }
         }catch (Exception e){
-            Toast.makeText(getApplicationContext(), "자동로그인 실패",
-                    Toast.LENGTH_SHORT).show();
+
         }
 
         //로그인 눌렀을 경우
@@ -59,8 +60,6 @@ public class MainActivity extends AppCompatActivity {
                 id = loginID.getText().toString();
                 password = loginPassword.getText().toString();
                 autoCheck = autoLogin.isChecked();
-                Toast.makeText(getApplicationContext(), "autologin: " + autoCheck,
-                        Toast.LENGTH_SHORT).show();
 
                 //아이디, 비밀번호 맞음
                 if (password.equals(passwordCheck(id))) {
@@ -68,12 +67,9 @@ public class MainActivity extends AppCompatActivity {
                         editor = memberPref.edit();
                         editor.putString("autoID", id);
                         editor.putString("autoPassword", password);
-                        editor.putBoolean("autoCheck", true);
+                        editor.putBoolean("autoCheck", autoCheck);
                         editor.commit();
-                        Toast.makeText(getApplicationContext(), "프레퍼런스 저장", Toast.LENGTH_SHORT).show();
                     }
-                    Toast.makeText(getApplicationContext(), "자동로그인 화면전환",
-                            Toast.LENGTH_SHORT).show();
                     //product 화면으로 이동
                     Intent intent = new Intent(getApplicationContext(), ProductActivity.class);
                     intent.putExtra("intentId", id);
@@ -112,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     Intent intent = new Intent(getApplicationContext(),
                             ProductActivity.class);
-                    intent.putExtra("intentId", id);
+                    intent.putExtra("intentId", (String)null);
                     startActivity(intent);
                 }
             });
