@@ -2,25 +2,37 @@
 
 https://user-images.githubusercontent.com/100904133/198803410-34446f2d-0261-4cd6-9fa7-60c0c24fdbbd.MP4
 
-# mobileProgramming
-### 로그인 화면 (Relative Layout 사용)
+### 개발 환경 및 개발 언어
+
+- 운영체제 : macOS Big Sur 11.6.5
+- Compile SDK Version : 32 (API 31)
+- min SDK Version : 31
+- Target SDK Versiioon : 32
+- 개발언어 : Java
+
+---
+
+### **로그인 화면 -  MainActivity (Relative Layout 사용)**
 
 - 자동로그인시, SharedPreferences에 저장된 값 읽음
-- 로그인, 회원가입, product 버튼 구현
-
+- 로그인, 회원가입, 메인으로 이동 버튼 구현
 - 로그인 성공하고 자동로그인 true인 경우 SharedPreferences에 값 저장
+- 메인으로 이동 누를 시 product 화면으로 이동
+- passwordCheck() 함수를 통해 비밀번호 값이 일치하는지 확인
 
-### 회원가입 화면 (Linear Layout 사용)
-- 빈칸 있는 경우, 존재하는 아이디의 경우, 비밀번호 규칙(5자 이상, 숫자, 특수문자 사용) 중 하나라도 맞지 않으면 Toast 띄움
+### **회원가입 화면 - JoinActivity  (Linear Layout 사용)**
+
+- 빈칸이 있는 경우, 존재하는 아이디의 경우, 비밀번호 규칙(5자 이상, 숫자, 특수문자 사용) 중 하나라도 맞지 않으면 Toast 띄움
 - 회원가입 성공 시, files에 id, password, name, phone, address 저장
 
-### Product 화면(Grid Layout 사용)
+### **Product 화면 - ProductActivity(Grid Layout 사용)**
+
 - 로그인 했을 경우 -> 회원정보 클릭 시 Info 화면으로 넘어감
 - 로그인 하지 않았을 경우 -> 회원정보 클릭 시 Dialog 띄우고 회원가입 화면으로 넘어감
 
-### Info 화면(Linear Layout 사용)
-- 회원 이름, 전화번호, 주소 보여줌
+### **Info 화면 - InfoActivity (Linear Layout 사용)**
 
+- 회원 이름, 전화번호, 주소 보여줌
 
 ## 과제설명
 **1. 첫번째 화면 (Relative Layout 혹은 Fragment 사용) - 5점**- 
